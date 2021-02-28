@@ -50,9 +50,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $post->load('category', 'user' );
+
+        return view('posts.show', [
+            'post' => $post,
+        ]);
     }
 
     /**
