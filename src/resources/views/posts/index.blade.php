@@ -23,8 +23,8 @@
                         <h5 class="card-title">
                             投稿者:{{ $post->user->name }}
                         </h5>
-                        <p class="card-text">{{ $post->content}}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text">{{ $post->content}}</p>   
+                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">詳細</a>
                       </div>
                     </div>
                   @endforeach
