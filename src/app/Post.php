@@ -12,13 +12,15 @@ class Post extends Model
     ];
 
     public function category(){
-        // 投稿は1つのカテゴリーに属する
         return $this->belongsTo(\App\Category::class,'category_id');
       }
 
       public function user(){
-        // 投稿は1つのユーザーに属する
         return $this->belongsTo(\App\User::class,'user_id');
+      }
+
+      public function comments(){
+        return $this->hasMany(\App\Comment::class,'post_id', 'id');
       }
 
 }
