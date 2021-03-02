@@ -1,7 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card-body">
+    <form class="form-inline" action="{{ route('posts.search') }}" method="get">
+        {{ csrf_field() }}
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" class="form-control"  name="search" id="inputPassword2" placeholder="検索できます">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">検索する</button>
+    </form>
+</div>
+
 <div class="card-header">Dashboard</div>
+
+@isset($search_result)
+    <h5 class="card-title">{{ $search_result }}</h5>
+@endisset
+
 <div class="card-body">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -31,6 +46,15 @@
     </div>
     @endforeach
 
+@if(isset($category_id))
+    {{ $posts->appends(['category_id' => $category_id])->links() }}
+
+@elseif(isset($search_query))
+    {{ $posts->appends(['search' => $search_query])->links() }}
+
+@else
     {{ $posts->links() }}
+@endif
+
 </div>
 @endsection

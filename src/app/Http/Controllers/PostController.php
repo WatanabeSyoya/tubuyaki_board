@@ -112,4 +112,21 @@ class PostController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $posts = Post::where('title', 'like', "%{$request->search}%")
+                ->orWhere('content', 'like', "%{$request->search}%")
+                ->paginate(3);
+
+        $search_result = $request->search.'の検索結果'.$posts->total().'件';
+
+        return view('posts.index', [
+            'posts' => $posts,
+            'search_result' => $search_result,
+            'search_query'  => $request->search
+        ]);
+    }
+
+
 }
